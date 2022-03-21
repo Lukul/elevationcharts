@@ -132,4 +132,5 @@ dmypy.json
 *.gpx
 .idea/
 data/PacificCrestTrail/*.txt
-
+*.pkl
+*.pdf
