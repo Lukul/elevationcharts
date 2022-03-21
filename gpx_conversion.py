@@ -26,7 +26,6 @@ class segment():
 		waypoint_index = []
 		annotation = []
 		for waypoint in self.waypoints:
-			waypoint.
 			if waypoint.name[:2] == 'WR' or waypoint.name[:2] == 'CS':
 				waypoint_index.append(self.get_distance_from_start(waypoint))
 				# Halfmile uses always WR for Water and CS for Campsites
@@ -44,7 +43,5 @@ class segment():
 				distance_to_trackpoints.append(geopy.distance.distance(pointTrack, pointWaypoint).mi)
 
 		val, idx = min((val, idx) for (idx, val) in enumerate(distance_to_trackpoints))
-
-		print(val,idx)
 
 		return idx
