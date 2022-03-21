@@ -34,12 +34,12 @@ def plot_single_pdf_page(split_points, rows, size=(8.27, 11.69)):
 		x, y, a = zip(*[(point.distance, point.elevation, point.annotation) for point in split_points[i]])
 		axs[i].plot(x, y, color='black')
 		for j, txt in enumerate(a):
-			if txt == 'W':
-				axs[i].annotate(txt, (x[j], y[j]), xytext=(0, 15), textcoords='offset points', color='blue', ha='center',
-				                va='center', arrowprops=dict(arrowstyle="-"))
-			if txt == 'C':
-				axs[i].annotate(txt, (x[j], y[j]), xytext=(0, -15), textcoords='offset points', color='green', ha='center',
-				                va='center', arrowprops=dict(arrowstyle="-"))
+			if 'W' in txt:
+				axs[i].annotate(txt, (x[j], y[j]), xytext=(7, 25), textcoords='offset points', color='blue', ha='center',
+				                va='center', arrowprops=dict(arrowstyle="-", relpos=(0.21,0.4)), rotation=45, size=6)
+			if 'C' in txt:
+				axs[i].annotate(txt, (x[j], y[j]), xytext=(7, -25), textcoords='offset points', color='green', ha='center',
+				                va='center', arrowprops=dict(arrowstyle="-", relpos=(0.21,0.6)), rotation=-45, size=6)
 		axs[i].set_xlim([min(x), max(x)])
 		axs[i].set_ylim([0, round(max(y) + 500, -3)])
 		axs[i].grid()

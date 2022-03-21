@@ -12,15 +12,13 @@ def tracks_and_waypoints(distance, elevation, waypoint_index, annotation, tracks
 	wi, a = segment.get_water_and_campsites()
 	wi = [index + starting_index for index in wi]
 	waypoint_index.extend(wi)
-	print(waypoint_index)
 	annotation.extend(a)
 
 def prepare_for_plotting(distance, elevation, waypoint_index, annotation):
-	for c in 'A':  # BCDEFGHIJKLMNOPQR':
+	for c in 'ABCDEFGHIJKLMNOPQR':
 		tracks_and_waypoints(distance, elevation, waypoint_index, annotation,
 		                     'data/PacificCrestTrail/CA_Sec_' + c + '_tracks.gpx',
 		                     'data/PacificCrestTrail/CA_Sec_' + c + '_waypoints.gpx')
-	'''
 	for c in 'BCDEFG':
 		tracks_and_waypoints(distance, elevation, waypoint_index, annotation,
 		                     'data/PacificCrestTrail/OR_Sec_' + c + '_tracks.gpx',
@@ -29,7 +27,6 @@ def prepare_for_plotting(distance, elevation, waypoint_index, annotation):
 		tracks_and_waypoints(distance, elevation, waypoint_index, annotation,
 		                     'data/PacificCrestTrail/WA_Sec_' + c + '_tracks.gpx',
 		                     'data/PacificCrestTrail/WA_Sec_' + c + '_waypoints.gpx')
-	'''
 
 if __name__ == '__main__':
 	distance = []

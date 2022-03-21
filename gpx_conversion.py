@@ -16,7 +16,7 @@ class segment():
 			for i, point in enumerate(segment.points[:-1]):
 				pointA = (segment.points[i].latitude, segment.points[i].longitude)
 				pointB = (segment.points[i + 1].latitude, segment.points[i + 1].longitude)
-				accumulated_distance += geopy.distance.distance(pointA, pointB).mi
+				accumulated_distance += geopy.distance.distance(pointA, pointB).mi #* 1.02664
 				self.distance_from_start.append(accumulated_distance)
 				elevation.append(geopy.units.feet(meters=segment.points[i].elevation))
 
@@ -26,10 +26,13 @@ class segment():
 		waypoint_index = []
 		annotation = []
 		for waypoint in self.waypoints:
-			if waypoint.name[:2] == 'WR' or waypoint.name[:2] == 'CS':
-				waypoint_index.append(self.get_distance_from_start(waypoint))
-				# Halfmile uses always WR for Water and CS for Campsites
-				annotation.append('W' if waypoint.name[:2] == 'WR' else 'C')
+			if any(x in waypoint.name for x in ['CS', 'WR', 'WA']):
+				distance, index = self.get_distance_from_start(waypoint)
+				if distance < 0.5:
+					waypoint_index.append(index)
+					annotation.append(waypoint.name)
+				else:
+					print('Left out ', waypoint.name, ' with ', distance, ' miles to the track.')
 
 		return waypoint_index, annotation
 
@@ -44,4 +47,4 @@ class segment():
 
 		val, idx = min((val, idx) for (idx, val) in enumerate(distance_to_trackpoints))
 
-		return idx
+		return val, idx
